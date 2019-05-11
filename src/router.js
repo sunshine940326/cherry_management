@@ -36,7 +36,7 @@ export default new Router({
 							component: () => import('@/views/article/form.vue')
 						},
 						{
-							path: 'edit',
+							path: 'edit/:articleId',
 							name: 'articleEdit',
 							meta: {
 								title: '编辑文章'
@@ -107,5 +107,11 @@ export default new Router({
 							component: () => import('@/views/article/form.vue')
 						}]
 				}]
+		},
+		{
+			path: '/login',
+			component: () => import('@/views/login/index.vue'),
+			hidden: false,
+			name: 'login'
 		}]
 })
