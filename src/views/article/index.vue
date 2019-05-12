@@ -137,7 +137,8 @@ export default {
           type: 'success',
           message: '删除成功!'
         })
-      }).catch(() => {
+      }).catch((e) => {
+        console.log(e)
         this.$notify.info({
           title: '消息',
           type: 'info',
@@ -158,7 +159,6 @@ export default {
         limit: this.limit,
         offset: this.offset
       }
-      console.log('conditions', conditions)
       let queryParams = {}
       Object.keys(conditions).map(key => {
         conditions[key] && (queryParams[key] = conditions[key])
