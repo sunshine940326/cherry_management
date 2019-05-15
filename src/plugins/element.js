@@ -23,7 +23,7 @@ import {
   Notification,
   Popover,
   MessageBox,
-  Message,
+  Loading
 } from 'element-ui'
 
 Vue.use(Button)
@@ -47,7 +47,9 @@ Vue.use(Pagination)
 Vue.use(Form)
 Vue.use(FormItem)
 Vue.use(Popover)
+Vue.use(Loading.directive)
 
+Vue.prototype.$loading = Loading.service
 Vue.prototype.$notify = Notification
 Vue.prototype.$confirm = MessageBox.confirm
 Vue.prototype.$msgbox = MessageBox

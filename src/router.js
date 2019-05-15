@@ -107,11 +107,5 @@ export default new Router({
 							component: () => import('@/views/article/form.vue')
 						}]
 				}]
-		},
-		{
-			path: '/login',
-			component: () => import('@/views/login/index.vue'),
-			hidden: false,
-			name: 'login'
 		}]
 })
