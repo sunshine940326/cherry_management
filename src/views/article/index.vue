@@ -122,7 +122,10 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(async () => {
-        await _deleteArticle({ _id: row._id })
+        const queryParams = {
+          _id: row._id
+        }
+        await _deleteArticle({ queryParams })
         this.fetchArticles()
         this.$notify({
           title: '成功',
