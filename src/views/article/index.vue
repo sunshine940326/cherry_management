@@ -30,7 +30,7 @@
           <el-button type="primary" plain>新建文章</el-button>
         </div>
       </div>
-      <div class="list-container">
+      <div class="list-container" v-loading="isFetching">
         <el-table
           :data="articleList"
           border
@@ -78,6 +78,7 @@ export default {
   name: 'articleList',
   data() {
     return {
+      isFetching: false,
       articleList: null,
       total: 0,
       tableData: [],
@@ -113,9 +114,7 @@ export default {
   },
   methods: {
     handlePopoverShow() {
-      console.log(111)
       this.visible = !this.visible
-      console.log(this.visible)
     },
     handleDelete (index, row) {
       this.$confirm(`此操作将永久删除 “${row.title}” 该文章, 是否继续?`, '提示', {
@@ -123,15 +122,11 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(async () => {
-        await _deleteArticle({ _id: row._id })
-        const loading = this.$loading({
-          lock: true,
-          text: 'Loading',
-          spinner: 'el-icon-loading',
-          background: 'rgba(0, 0, 0, 0.7)'
-        })
+        const queryParams = {
+          _id: row._id
+        }
+        await _deleteArticle({ queryParams })
         this.fetchArticles()
-        loading.close()
         this.$notify({
           title: '成功',
           type: 'success',
@@ -154,6 +149,7 @@ export default {
       this.fetchArticles()
     },
     async fetchArticles () {
+      this.isFetching = true
       let conditions = {
         ...this.search,
         limit: this.limit,
@@ -163,9 +159,14 @@ export default {
       Object.keys(conditions).map(key => {
         conditions[key] && (queryParams[key] = conditions[key])
       })
-      const res = await _getArticleList({queryParams})
-      this.articleList = res.list
-      this.total = res.total
+      try {
+        const res = await _getArticleList({queryParams})
+        this.articleList = res.list
+        this.total = res.total
+      } catch (error) {
+        console.error(error)
+      }
+      this.isFetching = false
     },
     async getTagList() {
       const res = await _getTagList()
@@ -175,11 +176,6 @@ export default {
         }
       })
     },
-    // async fetchList() {
-    //   const res = await _getArticleList({})
-    //   this.total = res.total
-    //   this.articleList = res.list
-    // },
     handleEdit (index, id) {
       this.$router.push({
         name: "articleEdit",
