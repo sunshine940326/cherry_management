@@ -38,6 +38,7 @@ export default new Router({
 						{
 							path: 'edit/:articleId',
 							name: 'articleEdit',
+							hidden: true,
 							meta: {
 								title: '编辑文章'
 							},
@@ -49,7 +50,7 @@ export default new Router({
 					meta: {
 						title: '标签'
 					},
-					component: () => import('@/views/article'),
+					component: () => import('@/views/tag'),
 					children: [
 						{
 							path: 'list',
@@ -57,7 +58,7 @@ export default new Router({
 							meta: {
 								title: '标签列表'
 							},
-							component: () => import('@/views/article')
+							component: () => import('@/views/tag')
 						},
 						{
 							path: 'create',
@@ -65,15 +66,16 @@ export default new Router({
 							meta: {
 								title: '创建标签'
 							},
-							component: () => import('@/views/article/form.vue')
+							component: () => import('@/views/tag/form.vue')
 						},
 						{
 							path: 'edit',
 							name: 'tagEdit',
+							hidden: true,
 							meta: {
 								title: '编辑标签'
 							},
-							component: () => import('@/views/article/form.vue')
+							component: () => import('@/views/tag/form.vue')
 						}]
 				},
 				{
@@ -88,7 +90,7 @@ export default new Router({
 							meta: {
 								title: '用户列表'
 							},
-							component: () => import('@/views/article')
+							component: () => import('@/views/user')
 						},
 						{
 							path: 'create',
@@ -96,15 +98,16 @@ export default new Router({
 							meta: {
 								title: '创建用户'
 							},
-							component: () => import('@/views/article/form.vue')
+							component: () => import('@/views/user/form.vue')
 						},
 						{
 							path: 'edit',
 							name: 'userEdit',
+							hidden: true,
 							meta: {
 								title: '编辑用户'
 							},
-							component: () => import('@/views/article/form.vue')
+							component: () => import('@/views/user/form.vue')
 						}]
 				}]
 		}]

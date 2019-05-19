@@ -20,4 +20,42 @@ const _getTagList = async () => {
   return result
 }
 
-export { _getTagList }
+const _deleteTag = async ({queryParams}) => {
+  let result
+  const req = {
+    url: `${baseURL}/deleteTag`,
+    method: 'POST',
+    data: queryParams
+  }
+  try {
+    result = await Vue.prototype.$http(req)
+  } catch (err) {
+    Vue.prototype.$notify.error({
+      title: '错误',
+      message: '删除标签错误'
+    })
+    console.error(err)
+  }
+  return result
+}
+
+const _createTagItem = async ({queryParams}) => {
+  let result
+  const req = {
+    url: `${baseURL}/createTagItem`,
+    method: 'POST',
+    data: queryParams
+  }
+  try {
+    result = await Vue.prototype.$http(req)
+  } catch (err) {
+    Vue.prototype.$notify.error({
+      title: '错误',
+      message: '新建标签错误'
+    })
+    console.error(err)
+  }
+  return result
+}
+
+export { _getTagList, _deleteTag, _createTagItem }
