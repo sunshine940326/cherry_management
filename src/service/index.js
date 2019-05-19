@@ -1,11 +1,25 @@
 import Vue from 'vue'
 import axios from 'axios'
+import cookie from 'js-cookie'
 
 const baseURL = process.env.NODE_ENV === 'development'
   ? 'http://localhost:3031'
   : 'http://{{your_location}}'
 
 Vue.prototype.$http = axios
+
+axios.interceptors.request.use(
+  config => {
+    const token = cookie.get('token')
+    if (config.url !== '/login' || config.url !== '/register') {
+      config.headers.Authorization = `Bearer ${token}`
+    }
+    return config
+  },
+  err => {
+    throw new Error('发起请求出错', err)
+  }
+)
 
 axios.interceptors.response.use(
   res => {
