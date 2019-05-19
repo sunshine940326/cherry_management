@@ -107,5 +107,15 @@ export default new Router({
 							component: () => import('@/views/article/form.vue')
 						}]
 				}]
+		},
+		{
+			path: '/login',
+			name: 'login',
+			component: () => import('@/views/login/index.vue')
+		},
+		{
+			path: '/register',
+			name: 'register',
+			component: () => import('@/views/login/index.vue')
 		}]
 })
