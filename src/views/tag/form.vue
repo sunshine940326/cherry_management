@@ -10,73 +10,42 @@
     </el-form>
 
     <div class="bottom-button">
-      <el-button type="primary" @click="onSubmit">立即创建</el-button>
+      <el-button type="primary" @click="handleSubmit">立即创建</el-button>
       <el-button @click="handleCancel">取消</el-button>
     </div>
   </div>
 </div>
 </template>
 <script>
-import MarkDown from 'vue-meditor'
-import { _createArticleItem, _updateArticle, _getArticleList } from '@/service/article.js'
-import { _getTagList } from '@/service/tag.js'
+import { _createTagItem, _getTagList } from '@/service/tag.js'
 
 export default {
   name: 'articleForm',
-  components:{
-    MarkDown
-  },
   data() {
     return {
       form: {
-        title: '',
-        desc: '',
-        content: '',
-        author: '',
-        state: 'draft',
-        tag: ''
-      },
-      initialValue: '',
-      options: [],
-      value: '',
-      radio: '1'
+        tagName: '',
+        tagValue: ''
+      }
     }
   },
   computed: {
     isEdit() {
-      return this.$route.name === 'articleEdit'
+      return this.$route.name === 'tagEdit'
     }
   },
   methods: {
-    handleMDChange(md){
-      console.log('markdownValue', md)
-      this.form.content = md.markdownValue
-    },
-    async onSubmit () {
-      // const queryParams = {
-      //   ...this.form,
-      //   id: this.$route.params.articleId || null,
-      // }
-      const { content, desc, title, state, tag, author } = this.form
-      const queryParams = {
-        id: this.$route.params.articleId || null,
-        content,
-        desc,
-        title,
-        state,
-        tag,
-        author
-      }
+    async handleSubmit () {
       try {
-        this.isEdit ? await _updateArticle({queryParams}) : await _createArticleItem({queryParams})
+        await _createTagItem(this.form)
         this.$notify({
           title: '成功',
-          message: this.isEdit ? '修改文章成功' : '新建文章成功',
+          message: '新建分类成功',
           type: 'success'
         })
         setTimeout(() => {
           this.$router.push({
-            name: "articleList"
+            name: "tagList"
           })
         }, 1500)
       } catch (err) {
@@ -86,36 +55,20 @@ export default {
     handleCancel () {
       history.go(-1)
     },
-    async getArticleDetail() {
-      const queryParams = {
-        id: this.$route.params.articleId
-      }
-      const res = await _getArticleList({queryParams})
-      this.initialValue = res.list[0].content
-      return res.list[0]
-    },
     async getTagList() {
-      const res = await _getTagList()
-      this.options = res.list.map(item => {
-        return {
-          value: item.tagValue,
-          label: item.tagName
-        }
-      })
+      const queryParams = {
+        tagId: this.$route.params.tagId
+      }
+      const res = await _getTagList({ queryParams })
+      return res.list[0]
     }
   },
   async beforeMount () {
-    this.getTagList()
-    this.form = this.isEdit ? await this.getArticleDetail() : {}
+    this.form = this.isEdit ? await this.getTagList() : {}
   }
 }
 </script>
-<style lang="sass">
-.article-form
-  .el-form-item__content
-    @extend %text-left
-  .article-footer
-    @extend %text-right
-  .markdown
-    @extend %border-radius, %border
+<style lang="sass" scoped>
+.bottom-button
+  float: right
 </style>

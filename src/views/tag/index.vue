@@ -1,39 +1,45 @@
 <template>
   <div class="tag">
-    <el-table
-      :data="tagData"
-      border
-      stripe
-      style="width: 100%">
-      <el-table-column
-        type="index"
-        width="50">
-      </el-table-column>
-      <el-table-column
-        prop="tagName"
-        label="标签名"
-        width="180">
-      </el-table-column>
-      <el-table-column
-        prop="tagValue"
-        label="value"
-        width="180">
-      </el-table-column>
-      <el-table-column
-        prop="createAt"
-        label="创建时间">
-      </el-table-column>
-      <!-- <el-table-column
-        prop="address"
-        label="更新时间">
-      </el-table-column> -->
-      <el-table-column label="操作">
-        <template slot-scope="scope">
-          <el-button size="mini" type="text" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-          <el-button size="mini" type="text" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
-        </template>
-      </el-table-column>
-    </el-table>
+    <div v-if="isList">
+      <el-table
+        :data="tagData"
+        border
+        stripe
+        style="width: 100%">
+        <el-table-column
+          type="index"
+          width="50">
+        </el-table-column>
+        <el-table-column
+          prop="tagName"
+          label="标签名"
+          width="180">
+        </el-table-column>
+        <el-table-column
+          prop="tagValue"
+          label="value"
+          width="180">
+        </el-table-column>
+        <el-table-column
+          prop="createAt"
+          label="创建时间">
+        </el-table-column>
+        <!-- <el-table-column
+          prop="address"
+          label="更新时间">
+        </el-table-column> -->
+        <el-table-column label="操作">
+          <template slot-scope="scope">
+            <el-button size="mini" type="text" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+            <el-button size="mini" type="text" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+    </div>
+    
+    <div v-else class="article-main">
+      <router-view ></router-view>
+    </div>
   </div>
 </template>
 <script>
@@ -46,6 +52,11 @@ export default {
       isFetching: false,
       tagData: [],
     }  
+  },
+  computed: {
+    isList() {
+      return this.$route.name === 'tagList'
+    }
   },
   methods: {
     async getTagList() {
