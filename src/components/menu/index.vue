@@ -14,6 +14,7 @@
           <template slot="title">
             <i class="el-icon-menu"></i>{{ route.meta.title }}</template>
           <el-menu-item 
+            v-if="!child.hidden"
             v-for="child in route.children" 
             :index="route.path + '/' + child.path" 
             :key="route.path + '/' + child.path">

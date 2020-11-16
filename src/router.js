@@ -11,102 +11,104 @@ export default new Router({
 				title: '首页'
 			},
 			component: () => import('@/views/layout/index.vue'),
-			children: [
-				{
-					path: '/article',
-					meta: {
-						title: '文章'
+			children: [{
+				path: '/article',
+				meta: {
+					title: '文章'
+				},
+				component: () => import('@/views/article'),
+				children: [
+					{
+						path: 'list',
+						name: 'articleList',
+						meta: {
+							title: '文章列表'
+						},
+						component: () => import('@/views/article')
 					},
-					component: () => import('@/views/article'),
-					children: [
-						{
-							path: 'list',
-							name: 'articleList',
-							meta: {
-								title: '文章列表'
-							},
-							component: () => import('@/views/article')
+					{
+						path: 'create',
+						name: 'articleCreate',
+						meta: {
+							title: '创建文章'
 						},
-						{
-							path: 'create',
-							name: 'articleCreate',
-							meta: {
-								title: '创建文章'
-							},
-							component: () => import('@/views/article/form.vue')
+						component: () => import('@/views/article/form.vue')
+					},
+					{
+						path: 'edit/:articleId',
+						name: 'articleEdit',
+						hidden: true,
+						meta: {
+							title: '编辑文章'
 						},
-						{
-							path: 'edit/:articleId',
-							name: 'articleEdit',
-							meta: {
-								title: '编辑文章'
-							},
-							component: () => import('@/views/article/form.vue')
-						}]
+						component: () => import('@/views/article/form.vue')
+					}]
+			},
+			{
+				path: '/tag',
+				meta: {
+					title: '标签'
+				},
+				component: () => import('@/views/tag'),
+				children: [{
+					path: 'list',
+					name: 'tagList',
+					meta: {
+						title: '标签列表'
+					},
+					component: () => import('@/views/tag')
 				},
 				{
-					path: '/tag',
+					path: 'create',
+					name: 'tagCreate',
 					meta: {
-						title: '标签'
+						title: '创建标签'
 					},
-					component: () => import('@/views/article'),
-					children: [
-						{
-							path: 'list',
-							name: 'tagList',
-							meta: {
-								title: '标签列表'
-							},
-							component: () => import('@/views/article')
-						},
-						{
-							path: 'create',
-							name: 'tagCreate',
-							meta: {
-								title: '创建标签'
-							},
-							component: () => import('@/views/article/form.vue')
-						},
-						{
-							path: 'edit',
-							name: 'tagEdit',
-							meta: {
-								title: '编辑标签'
-							},
-							component: () => import('@/views/article/form.vue')
-						}]
+					component: () => import('@/views/tag/form.vue')
 				},
 				{
-					path: '/user',
+					path: 'edit/:tagId',
+					name: 'tagEdit',
+					hidden: true,
 					meta: {
-						title: '用户'
+						title: '编辑标签'
 					},
-					children: [
-						{
-							path: 'list',
-							name: 'userList',
-							meta: {
-								title: '用户列表'
-							},
-							component: () => import('@/views/article')
-						},
-						{
-							path: 'create',
-							name: 'userCreate',
-							meta: {
-								title: '创建用户'
-							},
-							component: () => import('@/views/article/form.vue')
-						},
-						{
-							path: 'edit',
-							name: 'userEdit',
-							meta: {
-								title: '编辑用户'
-							},
-							component: () => import('@/views/article/form.vue')
-						}]
+					component: () => import('@/views/tag/form.vue')
 				}]
+			},
+			{
+				path: '/user',
+				meta: {
+					title: '用户'
+				},
+				component: () => import('@/views/user'),
+				children: [
+					{
+						path: 'list',
+						name: 'userList',
+						meta: {
+							title: '用户列表'
+						},
+						component: () => import('@/views/user')
+					},
+					{
+						path: 'create',
+						name: 'userCreate',
+						meta: {
+							title: '创建用户'
+						},
+						component: () => import('@/views/user/form.vue')
+					},
+					{
+						path: 'edit/:userId',
+						name: 'userEdit',
+						hidden: true,
+						meta: {
+							title: '编辑用户'
+						},
+						component: () => import('@/views/user/form.vue')
+					}]
+			}]
 		},
 		{
 			path: '/login',
