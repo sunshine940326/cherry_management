@@ -68,7 +68,10 @@ export default {
   },
   methods: {
     handleMDChange(md){
-      console.log('markdownValue', md)
+      this.$notify({
+        title: '同步成功',
+        type: 'success'
+      })
       this.form.content = md.markdownValue
     },
     async onSubmit () {
@@ -87,7 +90,7 @@ export default {
         author
       }
       try {
-        this.isEdit ? await _updateArticle({queryParams}) : await _createArticleItem({queryParams})
+        this.isEdit ? await _updateArticle(queryParams) : await _createArticleItem(queryParams)
         this.$notify({
           title: '成功',
           message: this.isEdit ? '修改文章成功' : '新建文章成功',

@@ -17,7 +17,7 @@
 </div>
 </template>
 <script>
-import { _createTagItem, _getTagList } from '@/service/tag.js'
+import { _createTagItem, _getTagList, _updateTagItem } from '@/service/tag.js'
 
 export default {
   name: 'articleForm',
@@ -29,6 +29,11 @@ export default {
       }
     }
   },
+  watch: {
+    form(newValue, old){
+      console.log(newValue, old)
+    }
+  },
   computed: {
     isEdit() {
       return this.$route.name === 'tagEdit'
@@ -37,10 +42,15 @@ export default {
   methods: {
     async handleSubmit () {
       try {
-        await _createTagItem(this.form)
+        const queryParams = {
+          id: this.$route.params.tagId || null,
+          tagName: this.form.tagName,
+          tagValue: this.form.tagValue,
+        }
+        this.isEdit ? await _updateTagItem(queryParams) : await _createTagItem(queryParams)
         this.$notify({
           title: '成功',
-          message: '新建分类成功',
+          message: `${this.isEdit ? '编辑' : '新建'}分类成功`,
           type: 'success'
         })
         setTimeout(() => {

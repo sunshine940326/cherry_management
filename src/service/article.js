@@ -39,7 +39,7 @@ const _getArticleList = async ({queryParams}) => {
   return result
 }
 
-const _createArticleItem = async ({queryParams}) => {
+const _createArticleItem = async (queryParams) => {
   let result
   const req = {
     url: `${baseURL}/createArticleItem`,
@@ -58,7 +58,7 @@ const _createArticleItem = async ({queryParams}) => {
   return result
 }
 
-const _deleteArticle = async ({queryParams}) => {
+const _deleteArticle = async (queryParams) => {
   let result
   const req = {
     url: `${baseURL}/deleteArticle`,
