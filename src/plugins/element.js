@@ -23,6 +23,7 @@ import {
   Notification,
   Popover,
   MessageBox,
+  Message,
   Loading
 } from 'element-ui'
 
@@ -53,3 +54,4 @@ Vue.prototype.$loading = Loading.service
 Vue.prototype.$notify = Notification
 Vue.prototype.$confirm = MessageBox.confirm
 Vue.prototype.$msgbox = MessageBox
+Vue.prototype.$message = Message
