@@ -10,6 +10,7 @@
     "axios": "^0.18.0",
     "core-js": "^2.6.5",
     "element-ui": "^2.4.5",
+    "travis": "^0.1.1",
     "vue": "^2.6.10",
     "vue-meditor": "^0.9.3",
     "vue-router": "^3.0.3"
