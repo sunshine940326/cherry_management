@@ -4,7 +4,7 @@ import cookie from 'js-cookie'
 
 const baseURL = process.env.NODE_ENV === 'development'
   ? 'http://localhost:3031'
-  : 'http://{{your_location}}'
+  : 'http://test.cherryblog.site:3030'
 
 Vue.prototype.$http = axios
 
