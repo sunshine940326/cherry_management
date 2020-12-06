@@ -18,7 +18,7 @@ before_install:
 - echo -e "Host 118.24.62.205\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 after_success:
 - npm run build
-- scp -r stricthostkeychecking=no dist/. root@118.24.62.205:/home/test/cherryblog.site
+- scp -r dist/. root@118.24.62.205:/home/test/cherryblog.site
 env:
   global:
   - GH_REF: git@github.com:sunshine940326/cherry_management.git
