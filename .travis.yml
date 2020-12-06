@@ -15,7 +15,9 @@ before_install:
 - openssl aes-256-cbc -K $encrypted_cbae5432186b_key -iv $encrypted_cbae5432186b_iv
   -in id_rsa.enc -out ~/.ssh/id_rsa -d
 - chmod 600 ~/.ssh/id_rsa
-- echo -e "Host 118.24.62.205\n\tIdentityFile ~/.ssh/id_rsa\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+- echo -e "Host 118.24.62.205\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+script:
+- npm test
 after_success:
 - npm run build
 - scp -r stricthostkeychecking=no dist/. root@118.24.62.205:/home/test/cherryblog.site
