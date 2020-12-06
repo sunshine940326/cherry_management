@@ -20,7 +20,7 @@ script:
 - npm test
 after_success:
 - npm run build
-- scp -r stricthostkeychecking=no dist/. root@118.24.62.205:/home/test/cherryblog.site
+- scp -vv -r stricthostkeychecking=no dist/. root@118.24.62.205:/home/test/cherryblog.site
 env:
   global:
   - GH_REF: git@github.com:sunshine940326/cherry_management.git
