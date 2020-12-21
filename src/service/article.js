@@ -1,10 +1,10 @@
 import baseURL from './index'
 import Vue from 'vue'
 
-const _updateArticle = async ({queryParams}) => {
+const _updateArticle = async (queryParams) => {
   let result
   const req = {
-    url: `${baseURL}/update`,
+    url: `${baseURL}/updateArticle`,
     method: 'POST',
     data: queryParams
   }

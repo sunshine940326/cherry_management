@@ -64,7 +64,6 @@ export default {
   },
   async beforeMount () {
     this.form = this.isEdit ? await this.getUserList() : {}
-    console.log('this.form', this.form)
   }
 }
 </script>

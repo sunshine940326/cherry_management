@@ -37,15 +37,15 @@
           style="width: 100%">
           <el-table-column prop="title" label="标题">
           </el-table-column>
-          <el-table-column prop="tag" label="标签">
+          <el-table-column prop="tagName" label="标签">
           </el-table-column>
           <el-table-column prop="author" label="作者">
           </el-table-column>
           <el-table-column prop="state" label="状态">
           </el-table-column>
-          <el-table-column prop="createAt" label="创建时间">
+          <el-table-column prop="formatData" label="创建时间">
           </el-table-column>
-          <el-table-column prop="updateAt" label="更新时间">
+          <el-table-column prop="formatUpdateAt" label="更新时间">
           </el-table-column>
           <el-table-column prop="address" label="操作" width="100">
             <template slot-scope="scope">
@@ -83,7 +83,7 @@ export default {
       total: 0,
       tableData: [],
       value: '',
-      options: [],
+      options: {},
       visible: false,
       stateOptions: [
         {
@@ -126,7 +126,14 @@ export default {
           _id: row._id
         }
         await _deleteArticle({ queryParams })
+        const loading = this.$loading({
+          lock: true,
+          text: 'Loading',
+          spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.7)'
+        })
         this.fetchArticles()
+        loading.close()
         this.$notify({
           title: '成功',
           type: 'success',
@@ -161,7 +168,14 @@ export default {
       })
       try {
         const res = await _getArticleList({queryParams})
-        this.articleList = res.list
+        this.articleList = res.list.map( list => {
+          return {
+            ...list,
+            tagName: this.options[list.tag],
+            formatData: new Date(list.createAt).Format("yyyy-MM-dd hh:mm:ss"),
+            formatUpdateAt: new Date(list.updateAt).Format("yyyy-MM-dd hh:mm:ss"),
+          }
+        })
         this.total = res.total
       } catch (error) {
         console.error(error)
@@ -170,11 +184,11 @@ export default {
     },
     async getTagList() {
       const res = await _getTagList()
-      this.options = res.list.map(item => {
-        return {
-          value: item.tagValue
-        }
-      })
+      const _options = new Map()
+      res.list.forEach(tag => {
+        _options[tag.tagValue]= tag.tagName
+      });
+      this.options = _options;
     },
     handleEdit (index, id) {
       this.$router.push({

@@ -41,7 +41,6 @@ const _deleteUser = async ({quertParams}) => {
 
 const _createUser = async ({queryParams}) => {
   let result
-  console.log('quertParams', queryParams)
   const req = {
     url: `${baseURL}/createUser`,
     method: 'POST',

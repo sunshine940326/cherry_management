@@ -109,10 +109,17 @@ export default {
       history.go(-1)
     },
     async getArticleDetail() {
+      const loading = this.$loading({
+        lock: true,
+        text: 'Loading',
+        spinner: 'el-icon-loading',
+        background: 'rgba(0, 0, 0, 0.7)'
+      })
       const queryParams = {
         id: this.$route.params.articleId
       }
       const res = await _getArticleList({queryParams})
+      loading.close()
       this.initialValue = res.list[0].content
       return res.list[0]
     },
