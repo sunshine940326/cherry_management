@@ -21,7 +21,7 @@
           width="180">
         </el-table-column>
         <el-table-column
-          prop="createAt"
+          prop="formatData"
           label="创建时间">
         </el-table-column>
         <!-- <el-table-column
@@ -63,7 +63,12 @@ export default {
       this.isFetching = true
       try {
         const res = await _getTagList()
-        this.tagData = res.list
+        this.tagData = res.list.map( list => {
+          return {
+            ...list,
+            formatData: new Date(list.createAt).Format("yyyy-MM-dd hh:mm:ss")
+          }
+        })
       } catch (error) {
         console.error(error)
       }

@@ -59,7 +59,6 @@ const _createTagItem = async (queryParams) => {
 }
 
 const _updateTagItem = async (queryParams) => {
-  console.log(queryParams)
   let result
   const req = {
     url: `${baseURL}/updateTagItem`,
