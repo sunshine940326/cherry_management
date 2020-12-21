@@ -10,7 +10,7 @@
     </el-form>
 
     <div class="bottom-button">
-      <el-button type="primary" @click="handleSubmit">立即创建</el-button>
+      <el-button type="primary" @click="handleSubmit">{{ `立即${this.isEdit ? '编辑' : '新建'}`}}</el-button>
       <el-button @click="handleCancel">取消</el-button>
     </div>
   </div>
@@ -67,9 +67,10 @@ export default {
     },
     async getTagList() {
       const queryParams = {
-        tagId: this.$route.params.tagId
+        id: this.$route.params.tagId
       }
-      const res = await _getTagList({ queryParams })
+      const id = this.$route.params.tagId
+      const res = await _getTagList(queryParams)
       return res.list[0]
     }
   },

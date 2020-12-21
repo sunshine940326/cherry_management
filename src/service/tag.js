@@ -1,12 +1,13 @@
 import baseURL from './index'
 import Vue from 'vue'
 
-const _getTagList = async () => {
+const _getTagList = async (queryParams) => {
+  console.log('queryParams', queryParams)
   let result
   const req = {
     url: `${baseURL}/getTagList`,
     method: 'POST',
-    data: {}
+    data: queryParams
   }
   try {
     result = await Vue.prototype.$http(req)
